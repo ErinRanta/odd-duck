@@ -31,18 +31,18 @@ let fileNames = [
 
 const images = [];
 
-function Image(fileName) {
+function Product(fileName) {
   this.id = fileName;
   this.clicks = 0;
   this.views = 0;
   this.src = `./img/${fileName}`;
 }
 
-Image.prototype.handleClick = function () {
+Product.prototype.handleClick = function () {
 };
 
 for (let i = 0; i < fileNames.length; i++) {
-  images.push(new Image(fileNames[i]));
+  images.push(new Product(fileNames[i]));
 }
 
 

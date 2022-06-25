@@ -6,7 +6,15 @@ body {
 img {
     max-width: 200px;
     max-height: 200px;
+   
+
 }
+#image-selection {
+    position: relative;
+    left: 100px;
+
+}
+
 button {
     background-color: lightpink;
     
@@ -14,11 +22,6 @@ button {
 
 
 
-#images {
-    display: grid;
-    grid: center;
-    grid-template-columns: .75fr .75fr .75fr;
-}
 
 h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
@@ -29,6 +32,7 @@ h1 {
 }
 
 h2 {
+    text-align: center;
     font-family:Verdana, Geneva, Tahoma, sans-serif;
     color: purple;
     font-size: 40px;
