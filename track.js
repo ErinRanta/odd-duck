@@ -120,6 +120,22 @@ function generateRandomImage() {
     return images[index];
   }
 }
+function save() {
+  let data = JSON.stringify(images);
+  localStorage.setItem('state', data);
+
+}
+
+
+
+
+function read() {
+  let ValueFromLocalStorage = localStorage.getItem('state');
+  return JSON.parse(ValueFromLocalStorage);
+}
+
+
+
 
 
 Image.prototype.renderResults = function () {
@@ -135,10 +151,11 @@ Image.prototype.renderResults = function () {
 
 
 let buttonEl = document.getElementById('results-button');
-
 buttonEl.addEventListener('click', function () {
   voteResults();
 });
+
+
 
 
 let clicksArray = [];
