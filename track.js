@@ -141,8 +141,6 @@ buttonEl.addEventListener('click', function () {
 });
 
 
-//// generate chart data arrays///
-
 let clicksArray = [];
 let viewsArray = [];
 
@@ -157,7 +155,6 @@ function voteResults() {
     viewsArray.push(images[i].views);
   }
 
-  ////below is where the chart will be////
 
   let chartEl = document.getElementById('my-chart');
   let ctx = chartEl.getContext('2d');
