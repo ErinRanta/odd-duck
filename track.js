@@ -1,10 +1,11 @@
 'use strict';
 
-let imageElements = document.querySelectorAll('img');
-console.log(imageElements);
 
-let clicks = 0;
-let views = 0;
+
+
+let imageEls = document.querySelectorAll('img');
+let currentDisplay = [];
+
 let roundTracker = 0;
 
 let fileNames = [
@@ -26,8 +27,7 @@ let fileNames = [
   'tauntaun.jpg',
   'unicorn.jpg',
   'water-can.jpg',
-];
-
+]
 
 const images = [];
 
@@ -38,29 +38,26 @@ function Product(fileName) {
   this.src = `./img/${fileName}`;
 }
 
-Product.prototype.handleClick = function() {
+Product.prototype.handleClick = function () {
 };
 
 for (let i = 0; i < fileNames.length; i++) {
   images.push(new Product(fileNames[i]));
 }
 
-imageElements[0].id = images[0].id;
-imageElements[0].src = images[0].src;
+
+imageEls[0].id = images[0].id;
+imageEls[0].src = images[0].src;
 images[0].views++;
-imageElements[1].id = images[1].id;
-imageElements[1].src = images[1].src;
+imageEls[1].id = images[1].id;
+imageEls[1].src = images[1].src;
 images[1].views++;
-imageElements[2].id = images[2].id;
-imageElements[2].src = images[2].src;
+imageEls[2].id = images[2].id;
+imageEls[2].src = images[2].src;
 images[2].views++;
 
-
-
- 
 function handleClick(event) {
-  for (let i = 0; i <images.length; i++) {
-    console.log(event.target.id, images[i].id);
+  for (let i = 0; i < images.length; i++) {
     if (event.target.id === images[i].id) {
       images[i].clicks++;
     }
@@ -68,15 +65,17 @@ function handleClick(event) {
   if (roundTracker === 25) {
     let imageElement = document.getElementById('image-selection');
     imageElement.innerHTML = 'Voting Has Ended, Thank You!';
+    let buttonAddElement = document.getElementById('results-button');
+    buttonAddElement.hidden = false;
     return;
   }
   renderImages();
-  console.log(images);
+  // console.log(images);
   roundTracker++;
   console.log(roundTracker);
 }
 
-imageElements.forEach(function (img){
+imageEls.forEach(function (img) {
   img.addEventListener('click', handleClick);
 });
 
@@ -92,23 +91,38 @@ function renderImages() {
     image2 = generateRandomImage();
   }
 
-  imageElements[0].id = image1.id;
-  imageElements[0].src = image1.src;
+  imageEls[0].id = image1.id;
+  imageEls[0].src = image1.src;
   image1.views++;
-  imageElements[1].id = image2.id;
-  imageElements[1].src = image2.src;
+  imageEls[1].id = image2.id;
+  imageEls[1].src = image2.src;
   image2.views++;
-  imageElements[2].id = image3.id;
-  imageElements[2].src = image3.src;
+  imageEls[2].id = image3.id;
+  imageEls[2].src = image3.src;
   image3.views++;
+
+  console.log(imageEls[0].id);
+  console.log(imageEls[1].id);
+  console.log(imageEls[2].id);
+
+  currentDisplay[0] = image1.id;
+  currentDisplay[1] = image2.id;
+  currentDisplay[2] = image3.id;
+
 }
 
 function generateRandomImage() {
   let index = Math.floor(Math.random() * images.length);
-  return images[index];
+
+  if (currentDisplay.includes(images[index].id)) {
+    return generateRandomImage();
+  } else {
+    return images[index];
+  }
 }
 
-Product.prototype.renderResults = function() {
+
+Image.prototype.renderResults = function () {
   const parentElement = document.getElementById('results-table');
   const article = document.createElement('article');
   parentElement.appendChild(article);
@@ -118,11 +132,58 @@ Product.prototype.renderResults = function() {
   article.appendChild(h2);
 };
 
+
+
 let buttonEl = document.getElementById('results-button');
 
-buttonEl.addEventListener('click', function() {
-  console.log(images);
+buttonEl.addEventListener('click', function () {
+  voteResults();
+});
+
+
+//// generate chart data arrays///
+
+let clicksArray = [];
+let viewsArray = [];
+
+
+
+function voteResults() {
+
+
   for (let i = 0; i < images.length; i++) {
-    images[i].renderResults();
+
+    clicksArray.push(images[i].clicks);
+    viewsArray.push(images[i].views);
   }
-})
+
+  ////below is where the chart will be////
+
+  let chartEl = document.getElementById('my-chart');
+  let ctx = chartEl.getContext('2d');
+
+  let myChart = new Chart(ctx, {
+    type: 'bar',
+    options: {
+      layout: {
+        padding: 77
+      }
+    },
+    data: {
+      labels: fileNames,
+      datasets: [{
+        label: '# of clicks',
+        data: clicksArray,
+        backgroundColor: 'pink',
+      },
+
+      {
+        label: '# of Views',
+        data: viewsArray,
+        backgroundColor: 'purple',
+      }
+      ]
+    },
+
+  });
+}
