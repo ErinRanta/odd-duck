@@ -155,9 +155,6 @@ buttonEl.addEventListener('click', function () {
   voteResults();
 });
 
-
-
-
 let clicksArray = [];
 let viewsArray = [];
 
@@ -194,7 +191,7 @@ function voteResults() {
       {
         label: '# of Views',
         data: viewsArray,
-        backgroundColor: 'purple',
+        backgroundColor: '#8616c3',
       }
       ]
     },
