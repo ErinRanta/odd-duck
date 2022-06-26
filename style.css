@@ -3,39 +3,55 @@ body {
     
 }
 
+/* background {
+    repeating-linear-gradient;
+   
+      
+}
+ */
+
+
+
+
+h1 {
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+    color: #8616c3;
+    text-align: center;
+    font-size: 65px;
+    padding: 7px;
+    -moz-box-shadow: 5px 5px 5px 5px #8616c3;
+    -webkit-box-shadow: 5px 5px 5px 5px #8616c3;
+    box-shadow: 5px 5px 5px 5px #8616c3;
+
+
+}
+
+h2 {
+    text-align: center;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: #c62580;
+    font-size: 40px;
+}
+
 img {
+    border: solid;
+    border-color: #8616c3;
+    border-width: 20px;
     max-width: 200px;
     max-height: 200px;
    
 
 }
 #image-selection {
-    position: relative;
-    left: 100px;
+    display: flex;
+    justify-content: center;
+    padding: 20px;
 
 }
+
 
 button {
     background-color: lightpink;
     
 }
-
-h1 {
-    font-family: Verdana, Geneva, Tahoma, sans-serif;
-    color: rgb(200, 65, 99);
-    text-align: center;
-    font-size: 65px;
-    padding: 7px;
-}
-
-h2 {
-    text-align: center;
-    font-family:Verdana, Geneva, Tahoma, sans-serif;
-    color: purple;
-    font-size: 40px;
-}
-
-
-
-
   
