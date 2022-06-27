@@ -3,16 +3,6 @@ body {
     
 }
 
-/* background {
-    repeating-linear-gradient;
-   
-      
-}
- */
-
-
-
-
 h1 {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
     color: #8616c3;
@@ -50,8 +40,15 @@ img {
 }
 
 
-button {
-    background-color: lightpink;
-    
+#results-button {
+    display: flex;
+    justify-content: center;
+    color: hotpink;
 }
+
   
+#storage-button {
+    display: flex;
+    justify-content: center;
+    color:hotpink;
+}

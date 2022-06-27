@@ -1,8 +1,5 @@
 'use strict';
 
-
-
-
 let imageEls = document.querySelectorAll('img');
 let currentDisplay = [];
 
@@ -23,13 +20,14 @@ let fileNames = [
   'pet-sweep.jpg',
   'scissors.jpg',
   'shark.jpg',
-  'sweep.jpg',
+  'sweep.png',
   'tauntaun.jpg',
   'unicorn.jpg',
   'water-can.jpg',
-]
+  'wine-glass.jpg',
+];
 
-const images = [];
+let images = read() || [];
 
 function Product(fileName) {
   this.id = fileName;
@@ -41,8 +39,10 @@ function Product(fileName) {
 Product.prototype.handleClick = function () {
 };
 
-for (let i = 0; i < fileNames.length; i++) {
-  images.push(new Product(fileNames[i]));
+if (!images.length) {
+  for (let i = 0; i < fileNames.length; i++) {
+    images.push(new Product(fileNames[i]));
+  }
 }
 
 
@@ -64,15 +64,17 @@ function handleClick(event) {
   }
   if (roundTracker === 25) {
     let imageElement = document.getElementById('image-selection');
-    imageElement.innerHTML = 'Voting Has Ended, Thank You!';
-    let buttonAddElement = document.getElementById('results-button');
-    buttonAddElement.hidden = false;
+    imageElement.innerHTML = 'Voting is complete, Thank You!';
+    let button1AddElement = document.getElementById('results-button');
+    button1AddElement.hidden = false;
+    let button2AddElement = document.getElementById('storage-button');
+    button2AddElement.hidden = false;
     return;
   }
   renderImages();
-  // console.log(images);
   roundTracker++;
   console.log(roundTracker);
+  save();
 }
 
 imageEls.forEach(function (img) {
@@ -120,14 +122,12 @@ function generateRandomImage() {
     return images[index];
   }
 }
+
 function save() {
   let data = JSON.stringify(images);
   localStorage.setItem('state', data);
 
 }
-
-
-
 
 function read() {
   let ValueFromLocalStorage = localStorage.getItem('state');
@@ -136,9 +136,7 @@ function read() {
 
 
 
-
-
-Image.prototype.renderResults = function () {
+Product.prototype.renderResults = function () {
   const parentElement = document.getElementById('results-table');
   const article = document.createElement('article');
   parentElement.appendChild(article);
@@ -148,27 +146,30 @@ Image.prototype.renderResults = function () {
   article.appendChild(h2);
 };
 
-
-
 let buttonEl = document.getElementById('results-button');
+
 buttonEl.addEventListener('click', function () {
   voteResults();
 });
 
+let buttonEl2 = document.getElementById('storage-button');
+
+buttonEl2.addEventListener('click',function() {
+  localStorage.clear();
+});
+
+
 let clicksArray = [];
 let viewsArray = [];
 
-
-
 function voteResults() {
-
-
   for (let i = 0; i < images.length; i++) {
 
     clicksArray.push(images[i].clicks);
     viewsArray.push(images[i].views);
   }
 
+  ////create chart////
 
   let chartEl = document.getElementById('my-chart');
   let ctx = chartEl.getContext('2d');
@@ -177,7 +178,7 @@ function voteResults() {
     type: 'bar',
     options: {
       layout: {
-        padding: 77
+        padding: 70
       }
     },
     data: {
@@ -185,13 +186,13 @@ function voteResults() {
       datasets: [{
         label: '# of clicks',
         data: clicksArray,
-        backgroundColor: 'pink',
+        backgroundColor: 'purple'
       },
 
       {
         label: '# of Views',
         data: viewsArray,
-        backgroundColor: '#8616c3',
+        backgroundColor: 'white'
       }
       ]
     },
