@@ -1,5 +1,5 @@
 'use strict';
-
+/// assigning global///
 let imageEls = document.querySelectorAll('img');
 let currentDisplay = [];
 
@@ -28,6 +28,9 @@ let fileNames = [
 ];
 
 let images = read() || [];
+
+///Constructor adds info to products///
+
 
 function Product(fileName) {
   this.id = fileName;
@@ -81,6 +84,8 @@ imageEls.forEach(function (img) {
   img.addEventListener('click', handleClick);
 });
 
+///renders images///
+
 function renderImages() {
   let image1 = generateRandomImage();
   let image2 = generateRandomImage();
@@ -112,6 +117,7 @@ function renderImages() {
   currentDisplay[2] = image3.id;
 
 }
+/// random generator, so no duplicates///
 
 function generateRandomImage() {
   let index = Math.floor(Math.random() * images.length);
@@ -122,6 +128,9 @@ function generateRandomImage() {
     return images[index];
   }
 }
+
+///saves to local storage///
+
 
 function save() {
   let data = JSON.stringify(images);
@@ -146,6 +155,8 @@ Product.prototype.renderResults = function () {
   article.appendChild(h2);
 };
 
+///creates buttons w index file///
+
 let buttonEl = document.getElementById('results-button');
 
 buttonEl.addEventListener('click', function () {
@@ -169,7 +180,7 @@ function voteResults() {
     viewsArray.push(images[i].views);
   }
 
-  ////create chart////
+  ////creates data chart////
 
   let chartEl = document.getElementById('my-chart');
   let ctx = chartEl.getContext('2d');
